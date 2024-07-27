@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+import os
+import time
+import atexit
+import psutil
+
+self_pid, parent_pid = os.getpid(), os.getppid()
+freeze_list = []
+
+def unfreeze():
+    print('\n时は动き出す...')
+    for pid in freeze_list:
+        os.system(f'kill -18 {pid}')
+
+atexit.register(unfreeze)
+
+print('「THE · WORLD」時を止まれ！')
+for process in psutil.process_iter(['pid']):
+    pid = process.info['pid']
+    if pid in [self_pid, parent_pid]:
+        continue
+    os.system(f'kill -19 {pid}')
+    freeze_list.append(pid)
+
+try:
+    while True:
+        time.sleep(999999999)
+except:
+    pass
