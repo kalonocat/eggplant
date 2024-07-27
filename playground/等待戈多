@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+import os
+import time
+import psutil
+
+myself = os.getpid()
+found = False
+
+while not found:
+    try:
+        print('戈多在哪里？')
+        for process in psutil.process_iter(['pid', 'name']):
+            try:
+                if process.info['name'] == 'godot':
+                    print('这不是梦吧？')
+                    found = True
+                    break
+                elif process.info['pid'] != myself:
+                    print(f'你不是戈多，你是{process.info["name"]}')
+            except:
+                print('哥们，闹呢？')
+            time.sleep(5)
+        
+        if found:
+            break
+        else:
+            print('没有戈多，戈少也行啊！')
+    except:
+        print('没戈多也就算了，怎么连哥们都没了？！')
+    time.sleep(600)
