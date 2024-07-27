@@ -1,0 +1,5 @@
+#!/usr/bin/python3
+import os
+filename = os.path.basename(__file__)
+os.system(f'mv {filename} {filename}好玩吗？')
+print('现在开心了？')
